@@ -1,28 +1,27 @@
 package nolofinder;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Model {
 
-    private File bookstoreFile;
-    private File roomlistFile;
+    private String bookstoreFileLocation;
+    private String roomlistFileLocation;
     private ArrayList<Course> courses = new ArrayList<>();
 
-    void setBookstoreFile(File newFile) {
-        bookstoreFile = newFile;
+    void setBookstoreFileLocation(String fileLocation) {
+        bookstoreFileLocation = fileLocation;
     }
 
-    void setRoomlistFile(File newFile) {
-        roomlistFile = newFile;
+    void setRoomlistFileLocation(String fileLocation) {
+        roomlistFileLocation = fileLocation;
     }
 
-    File getBookstoreFile() {
-        return bookstoreFile;
+    String getBookstoreFile() {
+        return bookstoreFileLocation;
     }
 
-    File getRoomlistFile() {
-        return roomlistFile;
+    String getRoomlistFile() {
+        return roomlistFileLocation;
     }
 
 }

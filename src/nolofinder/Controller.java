@@ -5,8 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-
 public class Controller {
 
     Model model = new Model();
@@ -19,38 +17,38 @@ public class Controller {
 
     @FXML
     void importBookstore() {
-        model.setBookstoreFile(importFile());
+        model.setBookstoreFileLocation(importFile());
 
         if (model.getBookstoreFile() != null) {
-            bookstoreTextField.setText(model.getBookstoreFile().getAbsolutePath());
+            bookstoreTextField.setText(model.getBookstoreFile());
         }
 
     }
 
     @FXML
     void importRoomlist() {
-        model.setRoomlistFile(importFile());
+        model.setRoomlistFileLocation(importFile());
 
         if (model.getRoomlistFile() != null) {
-            roomlistTextField.setText(model.getRoomlistFile().getAbsolutePath());
+            roomlistTextField.setText(model.getRoomlistFile());
         }
 
     }
 
     @FXML
     void clear() {
-        model.setBookstoreFile(null);
-        model.setRoomlistFile(null);
+        model.setBookstoreFileLocation("");
+        model.setRoomlistFileLocation("");
 
         bookstoreTextField.setText("");
         roomlistTextField.setText("");
     }
 
-    File importFile() {
+    String importFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Spreadsheet");
 
-        return fileChooser.showOpenDialog(new Stage());
+        return fileChooser.showOpenDialog(new Stage()).getAbsolutePath();
     }
 
 }

@@ -1,8 +1,8 @@
 package nolofinder;
 
 public class Book {
-    String title;
-    int price;
+    private String title;
+    private int price;
 
     void setTitle(String newTitle) {
         title = newTitle;

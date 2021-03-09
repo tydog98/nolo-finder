@@ -1,8 +1,10 @@
 package nolofinder;
 
+import java.util.ArrayList;
+
 public class Course {
     //included in bookstore CSV
-    private Book[] books;
+    private ArrayList<Book> books = new ArrayList<>();
     private String courseSubject;
     private String courseNumber;
     private String courseSection;
@@ -49,10 +51,6 @@ public class Course {
 
     public void setInstructorEmail(String newInstructorEmail) {
         instructorEmail = newInstructorEmail;
-    }
-
-    public Book[] getBooks() {
-        return books;
     }
 
     public String getCourseSubject() {

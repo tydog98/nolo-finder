@@ -1,12 +1,13 @@
 package nolofinder;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Model {
 
     private File bookstoreFile;
     private File roomlistFile;
-    Course[] courses;
+    private ArrayList<Course> courses = new ArrayList<>();
 
     void setBookstoreFile(File newFile) {
         bookstoreFile = newFile;

@@ -19,7 +19,6 @@ public class Controller {
 
     @FXML
     void importBookstore() {
-
         model.setBookstoreFile(importFile());
 
         if (model.getBookstoreFile() != null) {
@@ -30,7 +29,6 @@ public class Controller {
 
     @FXML
     void importRoomlist() {
-
         model.setRoomlistFile(importFile());
 
         if (model.getRoomlistFile() != null) {

@@ -43,10 +43,6 @@ public class Model {
         String[] nextLine; //an array of values from the line
 
         while ((nextLine = reader.readNext()) != null) {
-            if (nextLine[0].equals("COURSE")) {
-                continue;
-            }
-
             //searches first column of line to see if it contains a subject code
             Matcher matcher = subjectPattern.matcher(nextLine[0]);
 
@@ -64,6 +60,9 @@ public class Model {
             }
 
         }
+
+        //removes the "COURSE" header from list of courses
+        courses.remove(0);
 
         //print courses and their books for testing purposes
         for (Course course : courses) {

@@ -1,27 +1,19 @@
 package nolofinder;
 
 public class Book {
-    private String title;
-    private String price;
+    private final String TITLE;
+    private final String PRICE;
 
     public Book(String newTitle, String newPrice) {
-        title = newTitle;
-        price = newPrice;
-    }
-
-    void setTitle(String newTitle) {
-        title = newTitle;
-    }
-
-    void setPrice(String newPrice) {
-        price = newPrice;
+        TITLE = newTitle;
+        PRICE = newPrice;
     }
 
     String getTitle() {
-        return title;
+        return TITLE;
     }
 
     String getPrice() {
-        return price;
+        return PRICE;
     }
 }

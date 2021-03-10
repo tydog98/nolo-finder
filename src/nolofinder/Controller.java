@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Controller {
@@ -56,7 +57,14 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Spreadsheet");
 
-        return fileChooser.showOpenDialog(new Stage()).getAbsolutePath();
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            return selectedFile.getAbsolutePath();
+        } else {
+            return "";
+        }
+
     }
 
 }

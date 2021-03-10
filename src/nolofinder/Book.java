@@ -2,13 +2,18 @@ package nolofinder;
 
 public class Book {
     private String title;
-    private int price;
+    private String price;
+
+    public Book(String newTitle, String newPrice) {
+        title = newTitle;
+        price = newPrice;
+    }
 
     void setTitle(String newTitle) {
         title = newTitle;
     }
 
-    void setPrice(int newPrice) {
+    void setPrice(String newPrice) {
         price = newPrice;
     }
 
@@ -16,7 +21,7 @@ public class Book {
         return title;
     }
 
-    int getPrice() {
+    String getPrice() {
         return price;
     }
 }

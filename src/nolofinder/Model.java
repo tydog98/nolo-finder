@@ -6,8 +6,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Model {
 
@@ -39,19 +37,14 @@ public class Model {
         final int TITLE_INDEX = 5;
         final int PRICE_INDEX = 13;
 
-        //regex pattern for 3-4 character subject codes
-        Pattern subjectPattern = Pattern.compile("\\w\\w\\w\\w?");
-
         //reads in CSV file
         CSVReader reader = new CSVReader(new FileReader(bookstoreFileLocation));
         String[] nextLine; //an array of values from the line
 
         while ((nextLine = reader.readNext()) != null) {
-            //searches first column of line to see if it contains a subject code
-            Matcher matcher = subjectPattern.matcher(nextLine[SUBJECT_INDEX]);
 
-            //if a subject code is found, add a new course and relevant information
-            if (matcher.find()) {
+            //if the subject code is not empty, add a new course and relevant information
+            if (!nextLine[SUBJECT_INDEX].equals("")) {
                 courses.add(new Course());
                 currentCourse = courses.size() - 1;
                 courses.get(currentCourse).setCourseSubject(nextLine[SUBJECT_INDEX]);

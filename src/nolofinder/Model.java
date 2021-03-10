@@ -43,18 +43,22 @@ public class Model {
         String[] nextLine; //an array of values from the line
 
         while ((nextLine = reader.readNext()) != null) {
+            if (nextLine[0].equals("COURSE")) {
+                continue;
+            }
+
             //searches first column of line to see if it contains a subject code
             Matcher matcher = subjectPattern.matcher(nextLine[0]);
 
             //if a subject code is found, add a new course and relevant information
-            if(matcher.find()){
+            if (matcher.find()) {
                 courses.add(new Course());
-                currentCourse = courses.size()-1;
+                currentCourse = courses.size() - 1;
                 courses.get(currentCourse).setCourseSubject(nextLine[0]);
 
-            //if no subject code was found, it is assumed to be a book
-            //if the duration of the book is N/A or PURCHASE, add the book
-            }else if (nextLine[10].equals("   N/A") || nextLine[10].equals("   PURCHASE")){
+                //if no subject code was found, it is assumed to be a book
+                //if the duration of the book is N/A or PURCHASE, add the book
+            } else if (nextLine[10].equals("   N/A") || nextLine[10].equals("   PURCHASE")) {
                 //add the book with the title and price
                 courses.get(currentCourse).addBook(nextLine[5], nextLine[13]);
             }

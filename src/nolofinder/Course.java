@@ -18,14 +18,14 @@ public class Course {
     private String instructorEmail;
 
     //for testing purposes
-    public void printBookList(){
+    public void printBookList() {
         for (Book book : books) {
             System.out.println(book.getTitle() + " " + book.getPrice());
         }
 
     }
 
-    public void addBook(String title, String price){
+    public void addBook(String title, String price) {
         books.add(new Book(title, price));
     }
 

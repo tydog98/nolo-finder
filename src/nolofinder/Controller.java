@@ -1,9 +1,12 @@
 package nolofinder;
 
+import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Controller {
 
@@ -42,6 +45,11 @@ public class Controller {
 
         bookstoreTextField.setText("");
         roomlistTextField.setText("");
+    }
+
+    @FXML
+    void processFiles() throws IOException, CsvValidationException {
+        model.importBookstoreData();
     }
 
     String importFile() {

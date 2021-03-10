@@ -8,7 +8,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nolofinder.Controller">
     <Button layoutX="117.0" layoutY="108.0" mnemonicParsing="false" onAction="#importBookstore" text="Import Bookstore CSV" />
     <Button layoutX="117.0" layoutY="159.0" mnemonicParsing="false" onAction="#importRoomlist" prefHeight="25.0" prefWidth="162.0" text="Import Roomlist CSV" />
-    <Button layoutX="223.0" layoutY="213.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="128.0" text="Convert" />
+    <Button layoutX="223.0" layoutY="213.0" mnemonicParsing="false" onAction="#processFiles" prefHeight="21.0" prefWidth="128.0" text="Convert" />
     <Button layoutX="223.0" layoutY="254.0" mnemonicParsing="false" onAction="#clear" prefHeight="15.0" prefWidth="127.0" text="Clear" />
     <TextField fx:id="bookstoreTextField" editable="false" layoutX="312.0" layoutY="108.0" prefHeight="26.0" prefWidth="225.0" />
     <TextField fx:id="roomlistTextField" editable="false" layoutX="312.0" layoutY="159.0" prefHeight="26.0" prefWidth="225.0" />

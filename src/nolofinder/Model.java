@@ -34,6 +34,10 @@ public class Model {
     void importBookstoreData() throws IOException, CsvValidationException {
 
         int currentCourse = 0; //index for the current course
+        final int SUBJECT_INDEX = 0;
+        final int DURATION_INDEX = 10;
+        final int TITLE_INDEX = 5;
+        final int PRICE_INDEX = 13;
 
         //regex pattern for 3-4 character subject codes
         Pattern subjectPattern = Pattern.compile("\\w\\w\\w\\w?");
@@ -44,19 +48,19 @@ public class Model {
 
         while ((nextLine = reader.readNext()) != null) {
             //searches first column of line to see if it contains a subject code
-            Matcher matcher = subjectPattern.matcher(nextLine[0]);
+            Matcher matcher = subjectPattern.matcher(nextLine[SUBJECT_INDEX]);
 
             //if a subject code is found, add a new course and relevant information
             if (matcher.find()) {
                 courses.add(new Course());
                 currentCourse = courses.size() - 1;
-                courses.get(currentCourse).setCourseSubject(nextLine[0]);
+                courses.get(currentCourse).setCourseSubject(nextLine[SUBJECT_INDEX]);
 
                 //if no subject code was found, it is assumed to be a book
                 //if the duration of the book is N/A or PURCHASE, add the book
-            } else if (nextLine[10].equals("   N/A") || nextLine[10].equals("   PURCHASE")) {
+            } else if (nextLine[DURATION_INDEX].equals("   N/A") || nextLine[DURATION_INDEX].equals("   PURCHASE")) {
                 //add the book with the title and price
-                courses.get(currentCourse).addBook(nextLine[5], nextLine[13]);
+                courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX]);
             }
 
         }

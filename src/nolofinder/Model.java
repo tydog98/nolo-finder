@@ -38,10 +38,11 @@ public class Model {
             final int DURATION_INDEX = 10;
             final int TITLE_INDEX = 5;
             final int PRICE_INDEX = 13;
+            String[] nextLine; //an array of values from the line
+
 
             //reads in CSV file
             CSVReader reader = new CSVReader(new FileReader(bookstoreFileLocation));
-            String[] nextLine; //an array of values from the line
 
             while ((nextLine = reader.readNext()) != null) {
 

@@ -40,7 +40,7 @@ public class Model {
             final int PRICE_INDEX = 13;
             final int REQUIREMENT_INDEX = 2;
             final int SEMESTER_INDEX = 3;
-            String[] nextLine; //an array of values from the line
+            String[] nextLine; //an array of values from the current line in the csv file
 
 
             //reads in CSV file

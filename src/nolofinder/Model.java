@@ -38,6 +38,7 @@ public class Model {
             final int DURATION_INDEX = 10;
             final int TITLE_INDEX = 5;
             final int PRICE_INDEX = 13;
+            final int REQUIREMENT_INDEX = 2;
             String[] nextLine; //an array of values from the line
 
 
@@ -53,8 +54,9 @@ public class Model {
                     courses.get(currentCourse).setCourseSubject(nextLine[SUBJECT_INDEX]);
 
                     //if no subject code was found, it is assumed to be a book
-                    //if the duration of the book is N/A or PURCHASE, add the book
-                } else if (nextLine[DURATION_INDEX].equals("   N/A") || nextLine[DURATION_INDEX].equals("   PURCHASE")) {
+                    //if the duration of the book is N/A or PURCHASE, and the book is required, add the book
+                } else if ((nextLine[DURATION_INDEX].equals("   N/A") || nextLine[DURATION_INDEX].equals("   PURCHASE"))
+                        && (nextLine[REQUIREMENT_INDEX].equals("REQ") || nextLine[REQUIREMENT_INDEX].equals("CHC"))) {
                     //add the book with the title and price
                     courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX]);
                 }

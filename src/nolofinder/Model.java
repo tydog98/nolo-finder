@@ -73,12 +73,6 @@ public class Model {
                             courses.get(currentCourse).setCourseSection("A");
                         }
 
-                        //all course numbers end with N, so filtering "N " will split the
-                        //course section while keeping the "All Sections" whole
-                        //split = nextLine[SUBJECT_INDEX].trim().split("N ");
-
-                        //courses.get(currentCourse).setCourseSection(split[1]);
-
                     }
 
                     //if no subject code was found, it is assumed to be a book

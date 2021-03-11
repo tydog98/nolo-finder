@@ -51,6 +51,7 @@ public class Controller {
     @FXML
     void processFiles() throws IOException, CsvValidationException {
         model.importBookstoreData();
+        model.importRoomlistData();
     }
 
     String importFile() {

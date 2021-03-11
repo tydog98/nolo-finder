@@ -3,6 +3,7 @@ package nolofinder;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,6 +93,24 @@ public class Model {
 
             //removes the "COURSE" header from list of courses
             courses.remove(0);
+
+        }
+    }
+
+    void importRoomlistData() throws IOException, CsvValidationException {
+        //check if there is a file to work on
+        if (roomlistFileLocation != null && !roomlistFileLocation.equals("")) {
+
+            int currentCourse = 0; //index for the current course
+            String[] nextLine; //an array of values from the current line in the csv file
+
+
+            //reads in CSV file
+            CSVReader reader = new CSVReader(new FileReader(roomlistFileLocation));
+
+            while ((nextLine = reader.readNext()) != null) {
+
+            }
         }
     }
 

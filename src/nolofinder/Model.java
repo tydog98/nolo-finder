@@ -50,10 +50,27 @@ public class Model {
             while ((nextLine = reader.readNext()) != null) {
 
                 //if the subject code is not empty, add a new course and relevant information
-                if (!nextLine[SUBJECT_INDEX].equals("")) {
+                if (!nextLine[SUBJECT_INDEX].isEmpty()) {
                     courses.add(new Course());
                     currentCourse = courses.size() - 1;
-                    courses.get(currentCourse).setCourseSubject(nextLine[SUBJECT_INDEX]);
+
+                    //make sure it's an actual course number
+                    //i spent too long figuring out why I was getting out of bounds exceptions
+                    if (!nextLine[SUBJECT_INDEX].equals("COURSE")) {
+
+                        //splits string by spaces to separate subject code and course number
+                        String[] split = nextLine[SUBJECT_INDEX].trim().split(" ");
+
+                        courses.get(currentCourse).setCourseSubject(split[0]);
+                        courses.get(currentCourse).setCourseNumber(split[1]);
+
+                        //all course numbers end with N, so filtering "N " will split the
+                        //course section while keeping the "All Sections" whole
+                        split = nextLine[SUBJECT_INDEX].trim().split("N ");
+
+                        courses.get(currentCourse).setCourseSection(split[1]);
+
+                    }
 
                     //if no subject code was found, it is assumed to be a book
                     //if the duration of the book is N/A or PURCHASE, and the book is required, add the book
@@ -65,7 +82,7 @@ public class Model {
                     //instructor names are on the same line as the listed semester, so if there's a semester
                     //there's an instructor
                     //makes sure that there's a course to add the instructor name to first
-                }else if (!nextLine[SEMESTER_INDEX].equals("") && !courses.isEmpty()) {
+                } else if (!nextLine[SEMESTER_INDEX].isEmpty() && !courses.isEmpty()) {
                     courses.get(currentCourse).setInstructorName(nextLine[INSTRUCTOR_INDEX]);
                 }
 
@@ -74,11 +91,10 @@ public class Model {
             //removes the "COURSE" header from list of courses
             courses.remove(0);
 
-            //print courses and their books for testing purposes
+            //print test output
             for (Course course : courses) {
-                System.out.print(course.getCourseSubject() + " ");
-                System.out.println(course.getInstructorName());
-                course.printBookList();
+                System.out.println("COURSE: ");
+                System.out.println(course.getCourseSubject() + " " + course.getCourseNumber() + " " + course.getCourseSection());
             }
         }
     }

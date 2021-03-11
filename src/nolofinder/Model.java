@@ -11,7 +11,7 @@ public class Model {
 
     private String bookstoreFileLocation;
     private String roomlistFileLocation;
-    private ArrayList<Course> courses = new ArrayList<>();
+    private final ArrayList<Course> courses = new ArrayList<>();
 
     void setBookstoreFileLocation(String fileLocation) {
         bookstoreFileLocation = fileLocation;

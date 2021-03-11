@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Course {
     //included in bookstore CSV
-    private ArrayList<Book> books = new ArrayList<>();
+    private final ArrayList<Book> books = new ArrayList<>();
     private String courseSubject;
     private String courseNumber;
     private String courseSection;

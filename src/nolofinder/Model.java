@@ -39,6 +39,8 @@ public class Model {
             final int TITLE_INDEX = 5;
             final int PRICE_INDEX = 13;
             final int REQUIREMENT_INDEX = 2;
+            final int SEMESTER_INDEX = 3;
+            final int INSTRUCTOR_INDEX = TITLE_INDEX; //instructors and titles are listed in the same column
             String[] nextLine; //an array of values from the line
 
 
@@ -59,6 +61,12 @@ public class Model {
                         && (nextLine[REQUIREMENT_INDEX].equals("REQ") || nextLine[REQUIREMENT_INDEX].equals("CHC"))) {
                     //add the book with the title and price
                     courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX]);
+
+                    //instructor names are on the same line as the listed semester, so if there's a semester
+                    //there's an instructor
+                    //makes sure that there's a course to add the instructor name to first
+                }else if (!nextLine[SEMESTER_INDEX].equals("") && !courses.isEmpty()) {
+                    courses.get(currentCourse).setInstructorName(nextLine[INSTRUCTOR_INDEX]);
                 }
 
             }
@@ -68,7 +76,8 @@ public class Model {
 
             //print courses and their books for testing purposes
             for (Course course : courses) {
-                System.out.println(course.getCourseSubject());
+                System.out.print(course.getCourseSubject() + " ");
+                System.out.println(course.getInstructorName());
                 course.printBookList();
             }
         }

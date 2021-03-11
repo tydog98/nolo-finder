@@ -73,9 +73,8 @@ public class Model {
                     }
 
                     //if no subject code was found, it is assumed to be a book
-                    //if the duration of the book is N/A or PURCHASE, and the book is required, add the book
-                } else if ((nextLine[DURATION_INDEX].equals("   N/A") || nextLine[DURATION_INDEX].equals("   PURCHASE"))
-                        && (nextLine[REQUIREMENT_INDEX].equals("REQ") || nextLine[REQUIREMENT_INDEX].equals("CHC"))) {
+                    //adds all books in course
+                } else if (!nextLine[DURATION_INDEX].isEmpty()) {
 
                     //add the book with the title and price
                     courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX], nextLine[REQUIREMENT_INDEX]);

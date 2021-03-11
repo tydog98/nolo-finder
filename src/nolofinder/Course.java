@@ -8,14 +8,16 @@ public class Course {
     private String courseSubject;
     private String courseNumber;
     private String courseSection;
-    private int totalCost;
-    private boolean nolo;
     private String instructorName;
 
     //included in roomlist CSV
     private String crn;
     private String courseName;
     private String instructorEmail;
+
+    //gotten by calculations
+    private int totalCost;
+    private boolean nolo;
 
     //for testing purposes
     public void printBookList() {

@@ -1,25 +1,25 @@
 package nolofinder;
 
 public class Book {
-    private final String TITLE;
-    private final String PRICE;
-    private final String REQUIREMENT; //says if the books is required or choice
+    private final String title;
+    private final String price;
+    private final String requirement; //says if the books is required or choice
 
     public Book(String newTitle, String newPrice, String newRequirement) {
-        TITLE = newTitle;
-        PRICE = newPrice;
-        REQUIREMENT = newRequirement;
+        title = newTitle;
+        price = newPrice;
+        requirement = newRequirement;
     }
 
-    String getTITLE() {
-        return TITLE;
+    String getTitle() {
+        return title;
     }
 
-    String getPRICE() {
-        return PRICE;
+    String getPrice() {
+        return price;
     }
 
-    String getREQUIREMENT() {
-        return REQUIREMENT;
+    String getRequirement() {
+        return requirement;
     }
 }

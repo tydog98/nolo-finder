@@ -22,7 +22,7 @@ public class Course {
     //for testing purposes
     public void printBookList() {
         for (Book book : books) {
-            System.out.println(book.getTITLE() + " " + book.getPRICE());
+            System.out.println(book.getTitle() + " " + book.getPrice());
         }
 
     }

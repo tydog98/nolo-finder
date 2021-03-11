@@ -58,16 +58,26 @@ public class Model {
                     if (!nextLine[SUBJECT_INDEX].equals("COURSE")) {
 
                         //splits string by spaces to separate subject code and course number
-                        String[] split = nextLine[SUBJECT_INDEX].trim().split(" ");
+                        //replaces ( with a space to remove (All sections)
+                        String[] split = nextLine[SUBJECT_INDEX].trim().replace("(", " ").split(" ");
 
                         courses.get(currentCourse).setCourseSubject(split[0]);
                         courses.get(currentCourse).setCourseNumber(split[1]);
+                        //completely removes any lingering "All"s that were connected to other characters
+                        //without a space
+                        courses.get(currentCourse).setCourseSection(split[2].replaceAll("[aA]ll", ""));
+
+                        //if a course section is empty it's because it was stored in the CSV as
+                        // "All Sections" and was thus removed, this replaces it with "A" (meaning all sections)
+                        if(courses.get(currentCourse).getCourseSection().isEmpty()) {
+                            courses.get(currentCourse).setCourseSection("A");
+                        }
 
                         //all course numbers end with N, so filtering "N " will split the
                         //course section while keeping the "All Sections" whole
-                        split = nextLine[SUBJECT_INDEX].trim().split("N ");
+                        //split = nextLine[SUBJECT_INDEX].trim().split("N ");
 
-                        courses.get(currentCourse).setCourseSection(split[1]);
+                        //courses.get(currentCourse).setCourseSection(split[1]);
 
                     }
 
@@ -96,10 +106,15 @@ public class Model {
     }
 
     void importRoomlistData() throws IOException, CsvValidationException {
-        //check if there is a file to work on
-        if (roomlistFileLocation != null && !roomlistFileLocation.equals("")) {
+        //check if there is a file to work on and that there are courses to check
+        if (roomlistFileLocation != null && !roomlistFileLocation.equals("") && !courses.isEmpty()) {
 
-            int currentCourse = 0; //index for the current course
+            final int CRN_INDEX = 4;
+            final int SUBJECT_INDEX = 5;
+            final int COURSE_NUM_INDEX = 6;
+            final int SECTION_INDEX = 7;
+            final int TITLE_INDEX = 8;
+            final int EMAIL_INDEX = 30;
             String[] nextLine; //an array of values from the current line in the csv file
 
 
@@ -108,6 +123,25 @@ public class Model {
 
             while ((nextLine = reader.readNext()) != null) {
 
+                //for every course, check if the subject, course number, and section are the same
+                //if they are, add the relevant information
+                for (Course currentCourse : courses) {
+
+                    if (currentCourse.getCourseSubject().equals(nextLine[SUBJECT_INDEX])
+                    && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
+                    && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
+
+                        currentCourse.setCrn(nextLine[CRN_INDEX]);
+                        currentCourse.setCourseName(nextLine[TITLE_INDEX]);
+                        currentCourse.setInstructorEmail(nextLine[EMAIL_INDEX]);
+                    }
+                }
+
+            }
+
+            for (Course course : courses) {
+                System.out.print(course.getCourseSubject() + " " + course.getCourseNumber() + " ");
+                System.out.println(course.getCourseSection() + " " + course.getCrn() + " " + course.getCourseName() + " " + course.getInstructorEmail());
             }
         }
     }

@@ -92,12 +92,6 @@ public class Model {
 
             //removes the "COURSE" header from list of courses
             courses.remove(0);
-
-            //print test output
-            for (Course course : courses) {
-                System.out.println("COURSE: ");
-                System.out.println(course.getCourseSubject() + " " + course.getCourseNumber() + " " + course.getCourseSection());
-            }
         }
     }
 

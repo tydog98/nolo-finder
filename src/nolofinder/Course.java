@@ -22,13 +22,13 @@ public class Course {
     //for testing purposes
     public void printBookList() {
         for (Book book : books) {
-            System.out.println(book.getTitle() + " " + book.getPrice());
+            System.out.println(book.getTITLE() + " " + book.getPRICE());
         }
 
     }
 
-    public void addBook(String title, String price) {
-        books.add(new Book(title, price));
+    public void addBook(String title, String price, String requirement) {
+        books.add(new Book(title, price, requirement));
     }
 
     public void setCourseSubject(String newCourseSubject) {

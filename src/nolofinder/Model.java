@@ -77,7 +77,7 @@ public class Model {
                         && (nextLine[REQUIREMENT_INDEX].equals("REQ") || nextLine[REQUIREMENT_INDEX].equals("CHC"))) {
 
                     //add the book with the title and price
-                    courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX]);
+                    courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX], nextLine[REQUIREMENT_INDEX]);
 
                     //instructor names are on the same line as the listed semester, so if there's a semester
                     //there's an instructor

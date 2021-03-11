@@ -69,7 +69,7 @@ public class Model {
 
                         //if a course section is empty it's because it was stored in the CSV as
                         // "All Sections" and was thus removed, this replaces it with "A" (meaning all sections)
-                        if(courses.get(currentCourse).getCourseSection().isEmpty()) {
+                        if (courses.get(currentCourse).getCourseSection().isEmpty()) {
                             courses.get(currentCourse).setCourseSection("A");
                         }
 
@@ -122,8 +122,8 @@ public class Model {
                 for (Course currentCourse : courses) {
 
                     if (currentCourse.getCourseSubject().equals(nextLine[SUBJECT_INDEX])
-                    && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
-                    && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
+                            && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
+                            && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
 
                         currentCourse.setCrn(nextLine[CRN_INDEX]);
                         currentCourse.setCourseName(nextLine[TITLE_INDEX]);
@@ -138,6 +138,14 @@ public class Model {
                 System.out.println(course.getCourseSection() + " " + course.getCrn() + " " + course.getCourseName() + " " + course.getInstructorEmail());
             }
         }
+    }
+
+    void claculateNolo() {
+        //todo
+    }
+
+    void outputFile() {
+        //todo
     }
 
 }

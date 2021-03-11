@@ -31,6 +31,16 @@ public class Course {
         books.add(new Book(title, price, requirement));
     }
 
+    public Course() {
+        courseName = "N/A";
+        courseNumber = "N/A";
+        crn = "N/A";
+        courseSection = "N/A";
+        courseSubject = "N/A";
+        instructorName = "N/A";
+        instructorEmail = "N/A";
+    }
+
     public void setCourseSubject(String newCourseSubject) {
         courseSubject = newCourseSubject;
     }

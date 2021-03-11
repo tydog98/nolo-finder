@@ -36,11 +36,10 @@ public class Model {
             int currentCourse = 0; //index for the current course
             final int SUBJECT_INDEX = 0;
             final int DURATION_INDEX = 10;
-            final int TITLE_INDEX = 5;
+            final int TITLE_INDEX = 5; //is also the same location as the instructor name
             final int PRICE_INDEX = 13;
             final int REQUIREMENT_INDEX = 2;
             final int SEMESTER_INDEX = 3;
-            final int INSTRUCTOR_INDEX = TITLE_INDEX; //instructors and titles are listed in the same column
             String[] nextLine; //an array of values from the line
 
 
@@ -55,7 +54,7 @@ public class Model {
                     currentCourse = courses.size() - 1;
 
                     //make sure it's an actual course number
-                    //i spent too long figuring out why I was getting out of bounds exceptions
+                    //I spent too long figuring out why I was getting out of bounds exceptions
                     if (!nextLine[SUBJECT_INDEX].equals("COURSE")) {
 
                         //splits string by spaces to separate subject code and course number
@@ -76,6 +75,7 @@ public class Model {
                     //if the duration of the book is N/A or PURCHASE, and the book is required, add the book
                 } else if ((nextLine[DURATION_INDEX].equals("   N/A") || nextLine[DURATION_INDEX].equals("   PURCHASE"))
                         && (nextLine[REQUIREMENT_INDEX].equals("REQ") || nextLine[REQUIREMENT_INDEX].equals("CHC"))) {
+
                     //add the book with the title and price
                     courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX]);
 
@@ -83,7 +83,9 @@ public class Model {
                     //there's an instructor
                     //makes sure that there's a course to add the instructor name to first
                 } else if (!nextLine[SEMESTER_INDEX].isEmpty() && !courses.isEmpty()) {
-                    courses.get(currentCourse).setInstructorName(nextLine[INSTRUCTOR_INDEX]);
+
+                    //instructor name is stored at same index as the book titles
+                    courses.get(currentCourse).setInstructorName(nextLine[TITLE_INDEX]);
                 }
 
             }

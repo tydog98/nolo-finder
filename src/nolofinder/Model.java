@@ -31,7 +31,7 @@ public class Model {
 
     void importBookstoreData() throws IOException, CsvValidationException {
         //check if there is a file to work on
-        if (bookstoreFileLocation != null && !bookstoreFileLocation.equals("")) {
+        if (bookstoreFileLocation != null && !bookstoreFileLocation.isEmpty()) {
 
             int currentCourse = 0; //index for the current course
             final int SUBJECT_INDEX = 0;
@@ -101,7 +101,7 @@ public class Model {
 
     void importRoomlistData() throws IOException, CsvValidationException {
         //check if there is a file to work on and that there are courses to check
-        if (roomlistFileLocation != null && !roomlistFileLocation.equals("") && !courses.isEmpty()) {
+        if (roomlistFileLocation != null && !roomlistFileLocation.isEmpty() && !courses.isEmpty()) {
 
             final int CRN_INDEX = 4;
             final int SUBJECT_INDEX = 5;

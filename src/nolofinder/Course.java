@@ -28,8 +28,8 @@ public class Course {
 
     }
 
-    public void addBook(String title, String price, String requirement, String duration) {
-        books.add(new Book(title, price, requirement, duration));
+    public void addBook(String title, String price, String requirement) {
+        books.add(new Book(title, price, requirement));
     }
 
     public Course() {

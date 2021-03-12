@@ -4,13 +4,11 @@ public class Book implements Comparable<Book> {
     private final String title;
     private final String price;
     private final String requirement; //says if the books is required or choice
-    private final String duration;
 
-    public Book(String newTitle, String newPrice, String newRequirement, String newDuration) {
+    public Book(String newTitle, String newPrice, String newRequirement) {
         title = newTitle;
         price = newPrice;
         requirement = newRequirement;
-        duration = newDuration;
     }
 
     String getTitle() {
@@ -23,10 +21,6 @@ public class Book implements Comparable<Book> {
 
     String getRequirement() {
         return requirement;
-    }
-
-    String getDuration() {
-        return duration;
     }
 
     @Override

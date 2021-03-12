@@ -20,6 +20,9 @@ public class Controller {
     private TextField roomlistTextField;
 
     @FXML
+    private TextField threshholdTextField;
+
+    @FXML
     void importBookstore() {
         model.setBookstoreFileLocation(importFile());
 
@@ -50,8 +53,10 @@ public class Controller {
 
     @FXML
     void processFiles() throws IOException, CsvValidationException {
+        double noloThreshhold = Double.parseDouble(threshholdTextField.getText());
         model.importBookstoreData();
         model.importRoomlistData();
+        model.claculateNolo(noloThreshhold);
     }
 
     String importFile() {

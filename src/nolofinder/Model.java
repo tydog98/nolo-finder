@@ -76,11 +76,15 @@ public class Model {
                     }
 
                     //if no subject code was found, it is assumed to be a book
-                    //adds all books in course
-                } else if (!nextLine[DURATION_INDEX].isEmpty()) {
+                    //adds all books in course that can be purchased
+                } else if (nextLine[DURATION_INDEX].trim().equals("N/A")
+                        || nextLine[DURATION_INDEX].trim().equals("PURCHASE")) {
 
-                    //add the book with the title and price
-                    courses.get(currentCourse).addBook(nextLine[TITLE_INDEX], nextLine[PRICE_INDEX], nextLine[REQUIREMENT_INDEX]);
+                    //add the book with the title, price, and it's requirement type
+                    //price removes the dollar sign to make casting to int easier for calculations
+                    courses.get(currentCourse).addBook(nextLine[TITLE_INDEX],
+                            nextLine[PRICE_INDEX].replace("$", ""), nextLine[REQUIREMENT_INDEX],
+                            nextLine[DURATION_INDEX].trim());
 
                     //instructor names are on the same line as the listed semester, so if there's a semester
                     //there's an instructor
@@ -132,16 +136,15 @@ public class Model {
                 }
 
             }
-
-            for (Course course : courses) {
-                System.out.print(course.getCourseSubject() + " " + course.getCourseNumber() + " ");
-                System.out.println(course.getCourseSection() + " " + course.getCrn() + " " + course.getCourseName() + " " + course.getInstructorEmail());
-            }
         }
     }
 
-    void claculateNolo() {
-        //todo
+    void claculateNolo(double noloThreshhold) {
+        for (Course course : courses) {
+            course.calculateNolo(noloThreshhold);
+            System.out.println(course.isNolo());
+        }
+
     }
 
     void outputFile() {

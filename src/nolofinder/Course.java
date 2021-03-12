@@ -36,6 +36,7 @@ public class Course {
         courseName = "N/A";
         courseNumber = "N/A";
         crn = "N/A";
+        totalCost = 0;
         courseSection = "N/A";
         courseSubject = "N/A";
         instructorName = "N/A";

@@ -39,6 +39,5 @@ public class Book implements Comparable<Book> {
         }
 
         return 0;
-        //return Integer.compare(Integer.parseInt(this.getPrice()), Integer.parseInt(otherBook.getPrice()));
     }
 }

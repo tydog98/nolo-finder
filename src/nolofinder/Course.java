@@ -17,7 +17,7 @@ public class Course {
     private String instructorEmail;
 
     //gotten by calculations
-    private int totalCost;
+    private double totalCost;
     private boolean nolo;
 
     //for testing purposes
@@ -75,6 +75,8 @@ public class Course {
             grandTotal = requiredTotal;
         }
 
+        totalCost = grandTotal;
+
         if (grandTotal > noloThreshhold) {
             nolo = false;
         } else if (grandTotal < noloThreshhold) {
@@ -131,7 +133,7 @@ public class Course {
         return courseSection;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 

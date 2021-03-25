@@ -182,6 +182,9 @@ public class Model {
         // close writers
         csvWriter.close();
         writer.close();
+
+        //removes all data so a new file can be read in
+        courses.clear();
     }
 
 }

@@ -97,7 +97,7 @@ public class Model {
                 } else if (!nextLine[SEMESTER_INDEX].isEmpty() && !courses.isEmpty()) {
 
                     //instructor name is stored at same index as the book titles
-                    courses.get(currentCourse).setInstructorName(nextLine[TITLE_INDEX]);
+                    courses.get(currentCourse).setInstructorName(nextLine[TITLE_INDEX].replace(",", " "));
                 }
 
             }
@@ -158,7 +158,7 @@ public class Model {
 
         // header record
         String[] headerRecord = {"CRN", "SUBJECT", "NUMBER", "SECTION", "COURSE NAME", "COST", "NOLO"
-                , "INSTRUCTOR FIRST NAME", "INSTRUCTOR LAST NAME", "INSTRUCTOR EMAIL"};
+                , "INSTRUCTOR NAME", "INSTRUCTOR EMAIL"};
 
         // create a csv writer
         ICSVWriter csvWriter = new CSVWriterBuilder(writer)

@@ -1,19 +1,14 @@
 package nolofinder;
 
 public class Book implements Comparable<Book> {
-    private final String title;
     private final String price;
     private final String requirement; //says if the books is required or choice
 
-    public Book(String newTitle, String newPrice, String newRequirement) {
-        title = newTitle;
+    public Book(String newPrice, String newRequirement) {
         price = newPrice;
         requirement = newRequirement;
     }
 
-    String getTitle() {
-        return title;
-    }
 
     String getPrice() {
         return price;

@@ -20,16 +20,8 @@ public class Course {
     private double totalCost;
     private boolean nolo;
 
-    //for testing purposes
-    public void printBookList() {
-        for (Book book : books) {
-            System.out.println(book.getTitle() + " " + book.getPrice());
-        }
-
-    }
-
-    public void addBook(String title, String price, String requirement) {
-        books.add(new Book(title, price, requirement));
+    public void addBook(String price, String requirement) {
+        books.add(new Book(price, requirement));
     }
 
     public Course() {
@@ -100,10 +92,6 @@ public class Course {
 
     public void setTotalCost(int newTotalCost) {
         totalCost = newTotalCost;
-    }
-
-    public void setNolo(boolean newNolo) {
-        nolo = newNolo;
     }
 
     public void setInstructorName(String newInstructorName) {

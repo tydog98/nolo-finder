@@ -88,8 +88,8 @@ public class Model {
 
                     //add the book with the title, price, and it's requirement type
                     //price removes the dollar sign to make casting to int easier for calculations
-                    courses.get(currentCourse).addBook(nextLine[TITLE_INDEX],
-                            nextLine[PRICE_INDEX].replace("$", ""), nextLine[REQUIREMENT_INDEX]);
+                    courses.get(currentCourse).addBook(nextLine[PRICE_INDEX].replace("$", "")
+                            , nextLine[REQUIREMENT_INDEX]);
 
                     //instructor names are on the same line as the listed semester, so if there's a semester
                     //there's an instructor
@@ -147,7 +147,6 @@ public class Model {
     void claculateNolo(double noloThreshhold) {
         for (Course course : courses) {
             course.calculateNolo(noloThreshhold);
-            System.out.println(course.isNolo());
         }
 
     }

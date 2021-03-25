@@ -1,10 +1,16 @@
 package nolofinder;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
+import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Model {
@@ -146,8 +152,36 @@ public class Model {
 
     }
 
-    void outputFile() {
-        //todo
+    void outputFile() throws IOException {
+        // create a write
+        Writer writer = Files.newBufferedWriter(Paths.get("users-simple.csv"));
+
+        // header record
+        String[] headerRecord = {"CRN", "SUBJECT", "NUMBER", "SECTION", "COURSE NAME", "COST", "NOLO"
+                , "INSTRUCTOR FIRST NAME", "INSTRUCTOR LAST NAME", "INSTRUCTOR EMAIL"};
+
+        // create a csv writer
+        ICSVWriter csvWriter = new CSVWriterBuilder(writer)
+                .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                .withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER)
+                .withEscapeChar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                .withLineEnd(CSVWriter.DEFAULT_LINE_END)
+                .build();
+
+        // write header record
+        csvWriter.writeNext(headerRecord);
+
+        for (Course course : courses) {
+
+            // write data records
+            csvWriter.writeNext(new String[]{course.getCrn(), course.getCourseSubject(), course.getCourseNumber()
+                    , course.getCourseSection(), course.getCourseName(), course.getTotalCost(), course.isNolo()
+                    , course.getInstructorName(), course.getInstructorEmail()});
+        }
+
+        // close writers
+        csvWriter.close();
+        writer.close();
     }
 
 }

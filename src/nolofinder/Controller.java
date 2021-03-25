@@ -57,6 +57,7 @@ public class Controller {
         model.importBookstoreData();
         model.importRoomlistData();
         model.claculateNolo(noloThreshhold);
+        model.outputFile();
     }
 
     String importFile() {

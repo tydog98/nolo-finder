@@ -134,12 +134,16 @@ public class Course {
         return courseSection;
     }
 
-    public double getTotalCost() {
-        return totalCost;
+    public String getTotalCost() {
+        return String.valueOf(totalCost);
     }
 
-    public boolean isNolo() {
-        return nolo;
+    public String isNolo() {
+        if (nolo) {
+            return "Yes";
+        } else {
+            return "No";
+        }
     }
 
     public String getInstructorName() {

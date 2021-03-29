@@ -102,4 +102,9 @@ hs_err_pid*
 src/META-INF
 .idea
 commons-lang3-3.12.0
+manifest.mf
+build.xml
+dist/
+nbproject/
+build/
 

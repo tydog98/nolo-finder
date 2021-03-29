@@ -63,6 +63,10 @@ public class Controller {
     String importFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Spreadsheet");
+        
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+                new FileChooser.ExtensionFilter("All Files", "*"));
 
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 

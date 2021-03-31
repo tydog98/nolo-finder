@@ -70,9 +70,9 @@ public class Course {
 
         totalCost = grandTotal;
 
-        if (grandTotal <= noloThreshhold) {
+        if (grandTotal > noloThreshhold) {
             nolo = false;
-        } else if (grandTotal < noloThreshhold) {
+        } else if (grandTotal <= noloThreshhold) {
             nolo = true;
         }
 

@@ -121,42 +121,48 @@ public class Model {
         //check if there is a file to work on and that there are courses to check
         if (roomlistFileLocation != null && !roomlistFileLocation.isEmpty() && !courses.isEmpty()) {
 
-            final int CRN_INDEX = 4;
-            final int SUBJECT_INDEX = 5;
-            final int COURSE_NUM_INDEX = 6;
-            final int SECTION_INDEX = 7;
-            final int TITLE_INDEX = 8;
-            final int EMAIL_INDEX = 30;
             String[] nextLine; //an array of values from the current line in the csv file
 
 
             //reads in CSV file
             CSVReader reader = new CSVReader(new FileReader(roomlistFileLocation));
 
-            while ((nextLine = reader.readNext()) != null) {
+            nextLine = reader.readNext();
 
-                //for every course, check if the subject, course number, and section are the same
-                //if they are, add the relevant information
-                for (Course currentCourse : courses) {
+            //check the header to make sure it's a roomlist file
+            if (nextLine[0].equals("BLDG") && nextLine[1].equals("RM")) {
+                final int CRN_INDEX = 4;
+                final int SUBJECT_INDEX = 5;
+                final int COURSE_NUM_INDEX = 6;
+                final int SECTION_INDEX = 7;
+                final int TITLE_INDEX = 8;
+                final int EMAIL_INDEX = 30;
 
-                    if (currentCourse.getCourseSubject().equals(nextLine[SUBJECT_INDEX])
-                            && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
-                            && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
+                while ((nextLine = reader.readNext()) != null) {
 
-                        if (!nextLine[CRN_INDEX].isEmpty()) {
-                            currentCourse.setCrn(nextLine[CRN_INDEX]);
-                        }
+                    //for every course, check if the subject, course number, and section are the same
+                    //if they are, add the relevant information
+                    for (Course currentCourse : courses) {
 
-                        if (!nextLine[TITLE_INDEX].isEmpty()) {
-                            currentCourse.setCourseName(nextLine[TITLE_INDEX]);
-                        }
+                        if (currentCourse.getCourseSubject().equals(nextLine[SUBJECT_INDEX])
+                                && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
+                                && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
 
-                        if (!nextLine[EMAIL_INDEX].isEmpty()) {
-                            currentCourse.setInstructorEmail(nextLine[EMAIL_INDEX]);
+                            if (!nextLine[CRN_INDEX].isEmpty()) {
+                                currentCourse.setCrn(nextLine[CRN_INDEX]);
+                            }
+
+                            if (!nextLine[TITLE_INDEX].isEmpty()) {
+                                currentCourse.setCourseName(nextLine[TITLE_INDEX]);
+                            }
+
+                            if (!nextLine[EMAIL_INDEX].isEmpty()) {
+                                currentCourse.setInstructorEmail(nextLine[EMAIL_INDEX]);
+                            }
                         }
                     }
-                }
 
+                }
             }
         }
     }

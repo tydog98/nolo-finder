@@ -73,23 +73,23 @@ public class Model {
                         courses.add(new Course());
                         currentCourse = courses.size() - 1;
 
-                            //splits string by spaces to separate subject code and course number
-                            //replaces ( with a space to remove (All sections)
-                            String[] split = nextLine[SUBJECT_INDEX].trim()
-                                    .replace("(", " ").split(" ");
+                        //splits string by spaces to separate subject code and course number
+                        //replaces ( with a space to remove (All sections)
+                        String[] split = nextLine[SUBJECT_INDEX].trim()
+                                .replace("(", " ").split(" ");
 
-                            courses.get(currentCourse).setCourseSubject(split[0]);
-                            courses.get(currentCourse).setCourseNumber(split[1]);
-                            //completely removes any lingering "All"s that were connected to other characters
-                            //without a space
-                            courses.get(currentCourse).setCourseSection(split[2]
-                                    .replaceAll("[aA]ll", ""));
+                        courses.get(currentCourse).setCourseSubject(split[0]);
+                        courses.get(currentCourse).setCourseNumber(split[1]);
+                        //completely removes any lingering "All"s that were connected to other characters
+                        //without a space
+                        courses.get(currentCourse).setCourseSection(split[2]
+                                .replaceAll("[aA]ll", ""));
 
-                            //if a course section is empty it's because it was stored in the CSV as
-                            // "All Sections" and was thus removed, this replaces it with "A" (meaning all sections)
-                            if (courses.get(currentCourse).getCourseSection().isEmpty()) {
-                                courses.get(currentCourse).setCourseSection("A");
-                            }
+                        //if a course section is empty it's because it was stored in the CSV as
+                        // "All Sections" and was thus removed, this replaces it with "A" (meaning all sections)
+                        if (courses.get(currentCourse).getCourseSection().isEmpty()) {
+                            courses.get(currentCourse).setCourseSection("A");
+                        }
 
                         //if no subject code was found, it is assumed to be a book
                         //adds all books in course that can be purchased
@@ -143,9 +143,17 @@ public class Model {
                             && currentCourse.getCourseNumber().equals(nextLine[COURSE_NUM_INDEX])
                             && currentCourse.getCourseSection().equals(nextLine[SECTION_INDEX])) {
 
-                        currentCourse.setCrn(nextLine[CRN_INDEX]);
-                        currentCourse.setCourseName(nextLine[TITLE_INDEX]);
-                        currentCourse.setInstructorEmail(nextLine[EMAIL_INDEX]);
+                        if (!nextLine[CRN_INDEX].isEmpty()) {
+                            currentCourse.setCrn(nextLine[CRN_INDEX]);
+                        }
+
+                        if (!nextLine[TITLE_INDEX].isEmpty()) {
+                            currentCourse.setCourseName(nextLine[TITLE_INDEX]);
+                        }
+
+                        if (!nextLine[EMAIL_INDEX].isEmpty()) {
+                            currentCourse.setInstructorEmail(nextLine[EMAIL_INDEX]);
+                        }
                     }
                 }
 

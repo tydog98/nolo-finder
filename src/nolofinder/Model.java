@@ -5,6 +5,7 @@ import com.opencsv.CSVWriter;
 import com.opencsv.CSVWriterBuilder;
 import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.scene.control.Alert;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -112,8 +113,16 @@ public class Model {
                     }
 
                 }
+                //gives error if wrong header is given
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Bookstore file is not in correct format and will not be read");
+                alert.showAndWait();
             }
 
+            //gives error if file cannot be read
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot read bookstore file");
+            alert.showAndWait();
         }
     }
 
@@ -163,6 +172,9 @@ public class Model {
                     }
 
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Roomlist file is not in correct format and will not be read");
+                alert.showAndWait();
             }
         }
     }
@@ -207,6 +219,11 @@ public class Model {
 
         //removes all data so a new file can be read in
         courses.clear();
+
+        //informs user than processing is done
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
+        alert.showAndWait();
+
     }
 
 }

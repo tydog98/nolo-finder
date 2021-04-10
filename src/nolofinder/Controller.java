@@ -23,6 +23,9 @@ public class Controller {
     private TextField threshholdTextField;
 
     @FXML
+    private TextField saveTextField;
+
+    @FXML
     void importBookstore() {
         model.setBookstoreFileLocation(importFile());
 
@@ -60,10 +63,27 @@ public class Controller {
         model.outputFile();
     }
 
+    @FXML
+    void setSaveLocation() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fileChooser.setInitialFileName("converted.csv");
+
+        File selectedFile = fileChooser.showSaveDialog(new Stage());
+
+        if (selectedFile != null) {
+            model.setSaveFile(selectedFile);
+            saveTextField.setText(selectedFile.getAbsolutePath());
+        }
+
+    }
+
     String importFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Spreadsheet");
-        
+
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
                 new FileChooser.ExtensionFilter("All Files", "*"));

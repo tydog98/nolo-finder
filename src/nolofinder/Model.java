@@ -7,17 +7,18 @@ import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.scene.control.Alert;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Model {
 
     private String bookstoreFileLocation;
     private String roomlistFileLocation;
+    private File saveFile;
     private final ArrayList<Course> courses = new ArrayList<>();
 
     void setBookstoreFileLocation(String fileLocation) {
@@ -26,6 +27,10 @@ public class Model {
 
     void setRoomlistFileLocation(String fileLocation) {
         roomlistFileLocation = fileLocation;
+    }
+
+    void setSaveFile(File newFile) {
+        saveFile = newFile;
     }
 
     String getBookstoreFile() {
@@ -185,42 +190,50 @@ public class Model {
     }
 
     void outputFile() throws IOException {
-        // create a write
-        Writer writer = Files.newBufferedWriter(Paths.get("users-simple.csv"));
+        //checks that the path is valid
+        if (saveFile != null && !saveFile.getAbsolutePath().isEmpty()) {
 
-        // header record
-        String[] headerRecord = {"CRN", "SUBJECT", "NUMBER", "SECTION", "COURSE NAME", "COST", "NOLO"
-                , "INSTRUCTOR NAME", "INSTRUCTOR EMAIL"};
+            // create a write
+            Writer writer = Files.newBufferedWriter(saveFile.toPath());
 
-        // create a csv writer
-        ICSVWriter csvWriter = new CSVWriterBuilder(writer)
-                .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
-                .withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER)
-                .withEscapeChar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
-                .withLineEnd(CSVWriter.DEFAULT_LINE_END)
-                .build();
+            // header record
+            String[] headerRecord = {"CRN", "SUBJECT", "NUMBER", "SECTION", "COURSE NAME", "COST", "NOLO"
+                    , "INSTRUCTOR NAME", "INSTRUCTOR EMAIL"};
 
-        // write header record
-        csvWriter.writeNext(headerRecord);
+            // create a csv writer
+            ICSVWriter csvWriter = new CSVWriterBuilder(writer)
+                    .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                    .withQuoteChar(CSVWriter.NO_QUOTE_CHARACTER)
+                    .withEscapeChar(CSVWriter.DEFAULT_ESCAPE_CHARACTER)
+                    .withLineEnd(CSVWriter.DEFAULT_LINE_END)
+                    .build();
 
-        for (Course course : courses) {
+            // write header record
+            csvWriter.writeNext(headerRecord);
 
-            // write data records
-            csvWriter.writeNext(new String[]{course.getCrn(), course.getCourseSubject(), course.getCourseNumber()
-                    , course.getCourseSection(), course.getCourseName(), course.getTotalCost(), course.isNolo()
-                    , course.getInstructorName(), course.getInstructorEmail()});
+            for (Course course : courses) {
+
+                // write data records
+                csvWriter.writeNext(new String[]{course.getCrn(), course.getCourseSubject(), course.getCourseNumber()
+                        , course.getCourseSection(), course.getCourseName(), course.getTotalCost(), course.isNolo()
+                        , course.getInstructorName(), course.getInstructorEmail()});
+            }
+
+            // close writers
+            csvWriter.close();
+            writer.close();
+
+            //removes all data so a new file can be read in
+            courses.clear();
+
+            //informs user that processing is done
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Selected save directory is not valid");
+            alert.showAndWait();
         }
 
-        // close writers
-        csvWriter.close();
-        writer.close();
-
-        //removes all data so a new file can be read in
-        courses.clear();
-
-        //informs user that processing is done
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
-        alert.showAndWait();
 
     }
 

@@ -57,7 +57,7 @@ public class Model {
                 int currentCourse = 0; //index for the current course
                 final int SUBJECT_INDEX = 0;
                 final int DURATION_INDEX = 10;
-                final int TITLE_INDEX = 5; //is also the same location as the instructor name
+                final int INSTRUCTOR_INDEX = 5; //is also the same location as the instructor name
                 final int PRICE_INDEX = 13;
                 final int REQUIREMENT_INDEX = 2;
                 final int SEMESTER_INDEX = 3;
@@ -97,7 +97,7 @@ public class Model {
                     } else if (nextLine[DURATION_INDEX].trim().equals("N/A")
                             || nextLine[DURATION_INDEX].trim().equals("PURCHASE")) {
 
-                        //add the book with the title, price, and it's requirement type
+                        //add the book with the price, and it's requirement type
                         //price removes the dollar sign to make casting to int easier for calculations
                         courses.get(currentCourse).addBook(nextLine[PRICE_INDEX].replace("$", "")
                                 , nextLine[REQUIREMENT_INDEX]);
@@ -106,9 +106,7 @@ public class Model {
                         //there's an instructor
                         //makes sure that there's a course to add the instructor name to first
                     } else if (!nextLine[SEMESTER_INDEX].isEmpty() && !courses.isEmpty()) {
-
-                        //instructor name is stored at same index as the book titles
-                        courses.get(currentCourse).setInstructorName(nextLine[TITLE_INDEX]
+                        courses.get(currentCourse).setInstructorName(nextLine[INSTRUCTOR_INDEX]
                                 .replace(",", " "));
                     }
 
@@ -220,7 +218,7 @@ public class Model {
         //removes all data so a new file can be read in
         courses.clear();
 
-        //informs user than processing is done
+        //informs user that processing is done
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
         alert.showAndWait();
 

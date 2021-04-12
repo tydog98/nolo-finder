@@ -58,6 +58,10 @@ public class Controller {
         fileChooser.setTitle("Save File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.setInitialFileName("converted.csv");
+        
+         fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV File", "*.csv"),
+                new FileChooser.ExtensionFilter("All File", "*"));
 
         File selectedFile = fileChooser.showSaveDialog(new Stage());
 

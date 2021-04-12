@@ -23,9 +23,6 @@ public class Controller {
     private TextField threshholdTextField;
 
     @FXML
-    private TextField saveTextField;
-
-    @FXML
     void importBookstore() {
         model.setBookstoreFileLocation(importFile());
 
@@ -56,16 +53,7 @@ public class Controller {
 
     @FXML
     void processFiles() throws IOException, CsvValidationException {
-        double noloThreshhold = Double.parseDouble(threshholdTextField.getText());
-        model.importBookstoreData();
-        model.importRoomlistData();
-        model.claculateNolo(noloThreshhold);
-        model.outputFile();
-    }
-
-    @FXML
-    void setSaveLocation() {
-
+        //opens save dialogue
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -75,9 +63,14 @@ public class Controller {
 
         if (selectedFile != null) {
             model.setSaveFile(selectedFile);
-            saveTextField.setText(selectedFile.getAbsolutePath());
         }
-
+        
+        //calls converting methods
+        double noloThreshhold = Double.parseDouble(threshholdTextField.getText());
+        model.importBookstoreData();
+        model.importRoomlistData();
+        model.claculateNolo(noloThreshhold);
+        model.outputFile();
     }
 
     String importFile() {

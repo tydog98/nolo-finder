@@ -135,12 +135,11 @@ public class Model {
 
             String[] nextLine; //an array of values from the current line in the csv file
 
-
             //reads in CSV file
             CSVReader reader = new CSVReader(new FileReader(roomlistFileLocation));
 
             nextLine = reader.readNext();
-
+            
             //check the header to make sure it's a roomlist file
             if (nextLine[0].equals("BLDG") && nextLine[1].equals("RM")) {
                 final int CRN_INDEX = 4;

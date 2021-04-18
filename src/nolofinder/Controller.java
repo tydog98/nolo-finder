@@ -2,6 +2,7 @@ package nolofinder;
 
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -53,28 +54,44 @@ public class Controller {
 
     @FXML
     void processFiles() throws IOException, CsvValidationException {
-        //opens save dialogue
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save File");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fileChooser.setInitialFileName("converted.csv");
-        
-         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("CSV File", "*.csv"),
-                new FileChooser.ExtensionFilter("All File", "*"));
 
-        File selectedFile = fileChooser.showSaveDialog(new Stage());
+        try {
+            //checks that threshold is valid
+            double noloThreshhold = Double.parseDouble(threshholdTextField.getText());
 
-        if (selectedFile != null) {
-            model.setSaveFile(selectedFile);
+            if (noloThreshhold > 0) {
+                //opens save dialogue
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save File");
+                fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+                fileChooser.setInitialFileName("converted.csv");
+
+                fileChooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("CSV File", "*.csv"),
+                        new FileChooser.ExtensionFilter("All File", "*"));
+
+                File selectedFile = fileChooser.showSaveDialog(new Stage());
+
+                if (selectedFile != null) {
+                    model.setSaveFile(selectedFile);
+                }
+
+                //calls converting methods
+                model.importBookstoreData();
+                model.importRoomlistData();
+                model.claculateNolo(noloThreshhold);
+                model.outputFile();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Threshold must be more than zero");
+                alert.showAndWait();
+            }
+            //if a NumberFormatException is given, user did not give a number
+        } catch (NumberFormatException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Threshold must be a number");
+            alert.showAndWait();
         }
-        
-        //calls converting methods
-        double noloThreshhold = Double.parseDouble(threshholdTextField.getText());
-        model.importBookstoreData();
-        model.importRoomlistData();
-        model.claculateNolo(noloThreshhold);
-        model.outputFile();
+
     }
 
     String importFile() {

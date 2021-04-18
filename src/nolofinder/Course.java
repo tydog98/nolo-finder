@@ -19,9 +19,10 @@ public class Course {
     //gotten by calculations
     private double totalCost;
     private boolean nolo;
+    private boolean manualReview;
 
-    public void addBook(String price, String requirement) {
-        books.add(new Book(price, requirement));
+    public void addBook(String price, String requirement, String title) {
+        books.add(new Book(price, requirement, title));
     }
 
     public Course() {
@@ -46,6 +47,23 @@ public class Course {
         ArrayList<Book> choiceBooks = new ArrayList<>();
         int requiredTotal = 0;
 
+        //removes duplicate titles
+        int previousBook;
+        for (int currentBook = 1; currentBook < books.size(); currentBook++) {
+            previousBook = currentBook - 1;
+
+            //compares the two books titles
+            if (books.get(currentBook).getTitle().equals(books.get(previousBook).getTitle())) {
+
+                //if the current book is more expensive, remove the previous one, else do the reverse
+                if (books.get(currentBook).getPrice() >= books.get(previousBook).getPrice()) {
+                    books.remove(previousBook);
+                } else {
+                    books.remove(currentBook);
+                }
+            }
+        }
+
         for (Book book : books) {
             //if the book is a choice, add it to be sorted later
             if (book.getRequirement().equals("CHC")) {
@@ -53,7 +71,7 @@ public class Course {
 
                 //if the book is required, add the price to the total of all required books
             } else if (book.getRequirement().equals("REQ")) {
-                requiredTotal += Double.parseDouble(book.getPrice());
+                requiredTotal += book.getPrice();
             }
         }
 
@@ -63,7 +81,7 @@ public class Course {
 
         //add the total of all required books to the cheapest choice book if there is one
         if (!choiceBooks.isEmpty()) {
-            grandTotal = Double.parseDouble(choiceBooks.get(0).getPrice()) + requiredTotal;
+            grandTotal = choiceBooks.get(0).getPrice() + requiredTotal;
         } else {
             grandTotal = requiredTotal;
         }
@@ -110,6 +128,10 @@ public class Course {
         instructorEmail = newInstructorEmail;
     }
 
+    public void setManualReview(boolean newValue) {
+        manualReview = newValue;
+    }
+
     public String getCourseSubject() {
         return courseSubject;
     }
@@ -131,6 +153,14 @@ public class Course {
             return "Yes";
         } else {
             return "No";
+        }
+    }
+
+    public String getManualReview() {
+        if (manualReview) {
+            return "Error was found and course should be reviewed manually";
+        } else {
+            return "N/A";
         }
     }
 

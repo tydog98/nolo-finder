@@ -62,10 +62,13 @@ public class Model {
                 int currentCourse = 0; //index for the current course
                 final int SUBJECT_INDEX = 0;
                 final int DURATION_INDEX = 10;
-                final int INSTRUCTOR_INDEX = 5; //is also the same location as the instructor name
+                final int INSTRUCTOR_INDEX = 5; //is also the same location as the book titles
                 final int PRICE_INDEX = 13;
                 final int REQUIREMENT_INDEX = 2;
                 final int SEMESTER_INDEX = 3;
+                final int ISBN_INDEX = 11;
+                final int AUTHOR_INDEX = 4;
+                final int TITLE_INDEX = INSTRUCTOR_INDEX;
 
                 //skips headers and goes straight to the data
                 reader.readNext();
@@ -102,10 +105,18 @@ public class Model {
                     } else if (nextLine[DURATION_INDEX].trim().equals("N/A")
                             || nextLine[DURATION_INDEX].trim().equals("PURCHASE")) {
 
-                        //add the book with the price, and it's requirement type
-                        //price removes the dollar sign to make casting to int easier for calculations
-                        courses.get(currentCourse).addBook(nextLine[PRICE_INDEX].replace("$", "")
-                                , nextLine[REQUIREMENT_INDEX]);
+                        //checks if the current book has an ISBN
+                        if (!nextLine[ISBN_INDEX].isEmpty()) {
+                            //add the book with the price, it's requirement type, author, and a cleaned title
+                            //price removes the dollar sign to make casting to int easier for calculations
+                            courses.get(currentCourse).addBook(nextLine[PRICE_INDEX].replace("$", "")
+                                    , nextLine[REQUIREMENT_INDEX], cleanTitle(nextLine[TITLE_INDEX], nextLine[AUTHOR_INDEX]));
+
+                            //if there is no ISBN the course is flagged for manual review
+                        } else {
+                            courses.get(currentCourse).setManualReview(true);
+                        }
+
 
                         //instructor names are on the same line as the listed semester, so if there's a semester
                         //there's an instructor
@@ -139,7 +150,7 @@ public class Model {
             CSVReader reader = new CSVReader(new FileReader(roomlistFileLocation));
 
             nextLine = reader.readNext();
-            
+
             //check the header to make sure it's a roomlist file
             if (nextLine[0].equals("BLDG") && nextLine[1].equals("RM")) {
                 final int CRN_INDEX = 4;
@@ -197,7 +208,7 @@ public class Model {
 
             // header record
             String[] headerRecord = {"CRN", "SUBJECT", "NUMBER", "SECTION", "COURSE NAME", "COST", "NOLO"
-                    , "INSTRUCTOR NAME", "INSTRUCTOR EMAIL"};
+                    , "INSTRUCTOR NAME", "INSTRUCTOR EMAIL", "NOTE"};
 
             // create a csv writer
             ICSVWriter csvWriter = new CSVWriterBuilder(writer)
@@ -215,7 +226,7 @@ public class Model {
                 // write data records
                 csvWriter.writeNext(new String[]{course.getCrn(), course.getCourseSubject(), course.getCourseNumber()
                         , course.getCourseSection(), course.getCourseName(), course.getTotalCost(), course.isNolo()
-                        , course.getInstructorName(), course.getInstructorEmail()});
+                        , course.getInstructorName(), course.getInstructorEmail(), course.getManualReview()});
             }
 
             // close writers
@@ -234,6 +245,12 @@ public class Model {
         }
 
 
+    }
+
+    //removes common words, whitespace, the authors name, and punctuation from title
+    public String cleanTitle(String author, String title) {
+        return title.replace(author, "").replace("\s", "")
+                .replace("\"[.!?\\\\-]\"", "").replace("\\b(THE|A|OF|IS|AN|AND)\\b", "");
     }
 
 }

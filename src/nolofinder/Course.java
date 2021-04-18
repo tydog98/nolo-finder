@@ -26,14 +26,14 @@ public class Course {
     }
 
     public Course() {
-        courseName = "N/A";
-        courseNumber = "N/A";
-        crn = "N/A";
+        courseName = "-";
+        courseNumber = "-";
+        crn = "-";
         totalCost = 0;
-        courseSection = "N/A";
-        courseSubject = "N/A";
-        instructorName = "N/A";
-        instructorEmail = "N/A";
+        courseSection = "-";
+        courseSubject = "-";
+        instructorName = "-";
+        instructorEmail = "-";
     }
 
     public void calculateNolo(double noloThreshhold) {
@@ -158,9 +158,9 @@ public class Course {
 
     public String getManualReview() {
         if (manualReview) {
-            return "Error was found and course should be reviewed manually";
+            return "Course should be reviewed manually";
         } else {
-            return "N/A";
+            return "-";
         }
     }
 

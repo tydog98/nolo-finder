@@ -248,9 +248,11 @@ public class Model {
     }
 
     //removes common words, whitespace, the authors name, and punctuation from title
-    public String cleanTitle(String author, String title) {
-        return title.replace(author, "").replace("\s", "")
-                .replace("\"[.!?\\\\-]\"", "").replace("\\b(THE|A|OF|IS|AN|AND)\\b", "");
+    public String cleanTitle(String title, String author) {
+
+        return title.replace("\\b(THE|A|OF|IS|AN|AND)\\b", "").replace(author, "").replace("\s", "")
+                .replace("\"[.!?\\\\-]\"", "");
+
     }
 
 }

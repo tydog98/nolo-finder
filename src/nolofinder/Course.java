@@ -45,7 +45,7 @@ public class Course {
 
         //sorts all "choice" books to find the lowest value one
         ArrayList<Book> choiceBooks = new ArrayList<>();
-        int requiredTotal = 0;
+        double requiredTotal = 0;
 
         //removes duplicate titles
         int previousBook;

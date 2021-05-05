@@ -20,6 +20,7 @@ public class Model {
     private String roomlistFileLocation;
     private File saveFile;
     private final ArrayList<Course> courses = new ArrayList<>();
+    private boolean isCommandLine = false;
 
     void setBookstoreFileLocation(String fileLocation) {
         bookstoreFileLocation = fileLocation;
@@ -31,6 +32,10 @@ public class Model {
 
     void setSaveFile(File newFile) {
         saveFile = newFile;
+    }
+
+    void setCommandLine(boolean bool){
+        isCommandLine = bool;
     }
 
     String getBookstoreFile() {
@@ -129,14 +134,24 @@ public class Model {
                 }
                 //gives error if wrong header is given
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Bookstore file is not in correct format and will not be read");
-                alert.showAndWait();
+                if(!isCommandLine){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Bookstore file is not in correct format and will not be read");
+                    alert.showAndWait();
+                } else {
+                    System.out.println("ERROR: Bookstore file is not in correct format and will not be read");
+                }
+
             }
 
             //gives error if file cannot be read
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot read bookstore file");
-            alert.showAndWait();
+            if(!isCommandLine){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot read bookstore file");
+                alert.showAndWait();
+            } else {
+                System.out.println("ERROR: Cannot read bookstore file");
+            }
+
         }
     }
 
@@ -186,8 +201,13 @@ public class Model {
 
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Roomlist file is not in correct format and will not be read");
-                alert.showAndWait();
+                if(!isCommandLine){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Roomlist file is not in correct format and will not be read");
+                    alert.showAndWait();
+                } else {
+                    System.out.println("ERROR: Roomlist file is not in correct format and will not be read");
+                }
+
             }
         }
     }
@@ -237,11 +257,20 @@ public class Model {
             courses.clear();
 
             //informs user that processing is done
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
-            alert.showAndWait();
+            if(!isCommandLine){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Conversion complete");
+                alert.showAndWait();
+            } else {
+                System.out.println("Conversion complete");
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Selected save directory is not valid");
-            alert.showAndWait();
+            if (!isCommandLine){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Selected save directory is not valid");
+                alert.showAndWait();
+            } else {
+                System.out.println("ERROR: Selected save directory is not valid");
+            }
+
         }
 
 

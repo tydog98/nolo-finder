@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 
 public class Controller {
 
@@ -108,6 +111,47 @@ public class Controller {
             return selectedFile.getAbsolutePath();
         } else {
             return "";
+        }
+
+    }
+    
+    //arguments: noloThreshhold, bookstore csv, optional roomlist csv, output file
+    void runCommandline(String[] args) throws IOException, CsvValidationException{
+        if(Files.exists(Paths.get(args[1]))){
+            model.setCommandLine(true);
+            model.setBookstoreFileLocation(args[1]);
+
+            //four arguments means the roomlist is included
+            if(args.length == 4){
+                if(Files.exists(Paths.get(args[2]))){
+                    model.setRoomlistFileLocation(args[2]);
+                    model.setSaveFile(new File(args[3]));
+                } else {
+                    System.out.println("ERROR: Roomlist file does not exist");
+                }
+                //if it's not four arguments, assume it's 3 with the roomlist excluded
+            } else {
+                model.setSaveFile(new File(args[2]));
+            }
+
+            try {
+                //checks that threshold is valid
+                double noloThreshhold = Double.parseDouble(args[0]);
+
+                if(noloThreshhold > 0){
+                    //calls converting methods
+                    model.importBookstoreData();
+                    model.importRoomlistData();
+                    model.claculateNolo(noloThreshhold);
+                    model.outputFile();
+                }else{
+                    System.out.println("ERROR: Threshold must be more than zero");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("ERROR: Threshhold must be a number");
+            }
+        } else {
+            System.out.println("ERROR: Bookstore file does not exist");
         }
 
     }
